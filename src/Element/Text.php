@@ -21,6 +21,7 @@ class Text extends AbstractElement
         parent::__construct($name);
 
         $this->attributes['type'] = 'text';
+        $this->attributes['value'] = '';
 
         $this->rules['value'] = 'required|trim';
     }
