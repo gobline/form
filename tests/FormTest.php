@@ -54,11 +54,11 @@ class FormTest extends PHPUnit_Framework_TestCase
     public function testForm()
     {
         $html = (string) $this->form->getComponent('user')->getComponent('firstName');
-        $expectedHtml = '<input name="user[firstName]" value="" type="text" placeholder="Enter first name">' . "\n";
+        $expectedHtml = '<input name="user[firstName]" type="text" value="" placeholder="Enter first name">' . "\n";
         $this->assertSame($expectedHtml, $html);
 
         $html = (string) $this->form->getComponent('user')->getComponent('address')->getComponent('street');
-        $expectedHtml = '<input name="user[address][street]" value="" type="text" placeholder="Enter street">' . "\n";
+        $expectedHtml = '<input name="user[address][street]" type="text" value="" placeholder="Enter street">' . "\n";
         $this->assertSame($expectedHtml, $html);
 
         $data = [
@@ -75,11 +75,11 @@ class FormTest extends PHPUnit_Framework_TestCase
         $this->form->setData($data);
 
         $html = (string) $this->form->getComponent('user')->getComponent('firstName');
-        $expectedHtml = '<input name="user[firstName]" value="Mathieu" type="text" placeholder="Enter first name">' . "\n";
+        $expectedHtml = '<input name="user[firstName]" type="text" value="Mathieu" placeholder="Enter first name">' . "\n";
         $this->assertSame($expectedHtml, $html);
 
         $html = (string) $this->form->getComponent('user')->getComponent('address')->getComponent('street');
-        $expectedHtml = '<input name="user[address][street]" value="Foobar Street 42" type="text" placeholder="Enter street">' . "\n";
+        $expectedHtml = '<input name="user[address][street]" type="text" value="Foobar Street 42" placeholder="Enter street">' . "\n";
         $this->assertSame($expectedHtml, $html);
     }
 }
