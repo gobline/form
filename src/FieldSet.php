@@ -150,8 +150,14 @@ class FieldSet extends AbstractContainer
         $setter = 'set'.ucfirst($property);
         if (is_callable([$this->entity, $setter])) {
             $this->entity->$setter($value);
-        } elseif ((new ReflectionObject($this->entity))->getProperty($property)->isPublic()) {
-            $this->entity->$property = $value;
+        } else {
+            $reflectionObject = new ReflectionObject($this->entity);
+            if (
+                $reflectionObject->hasProperty($property) && 
+                $reflectionObject->getProperty($property)->isPublic()
+            ) {
+                $this->entity->$property = $value;
+            }
         }
     }
 
