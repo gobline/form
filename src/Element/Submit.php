@@ -21,6 +21,7 @@ class Submit extends AbstractElement
         parent::__construct($name);
 
         $this->attributes['type'] = 'submit';
+        $this->attributes['value'] = '';
     }
 
     public function __toString()
