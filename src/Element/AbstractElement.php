@@ -81,7 +81,11 @@ abstract class AbstractElement extends AbstractComponent implements FilterableIn
 
     public function setFilters($filters)
     {
-        $this->rules['value'] = $filters;
+        if (is_array($filters)) {
+            $this->rules = $filters;
+        } else {
+            $this->rules['value'] = $filters;
+        }
 
         return $this;
     }
@@ -99,5 +103,10 @@ abstract class AbstractElement extends AbstractComponent implements FilterableIn
     public function setErrors(array $errors)
     {
         $this->errors = $errors;
+    }
+
+    public function addErrors(array $errors)
+    {
+        $this->errors = array_merge($this->errors, $errors);
     }
 }
