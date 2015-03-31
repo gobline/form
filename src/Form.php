@@ -49,13 +49,29 @@ class Form extends AbstractContainer
 
     public function get($name)
     {
-        $component = $this->components[$name];
+        return $this->getRecursively($name, $this->components);
+    }
 
-        if ($component instanceof FieldSet) {
-            return $component->getEntity($name);
+    private function getRecursively($name, array $components)
+    {
+        if (array_key_exists($name, $components)) {
+            $component = $components[$name];
+
+            if ($component instanceof FieldSet) {
+                return $component->getEntity($name);
+            }
+
+            return $component->getValue();
         }
 
-        return $component->getValue();
+        foreach ($components as $component) {
+            if ($component instanceof FieldSet) {
+                $result = $this->getRecursively($name, $component->getComponents($name));
+                if ($result) {
+                    return $result;
+                }
+            }
+        }
     }
 
     public function populate($fieldSet, $entity)
@@ -72,17 +88,16 @@ class Form extends AbstractContainer
         }
 
         $this->messages = [];
-
-        $this->validateComponents($this->components);
+        $this->validateRecursively($this->components);
 
         return !$this->messages;
     }
 
-    private function validateComponents(array $components = [])
+    private function validateRecursively(array $components = [])
     {
         foreach ($components as $component) {
             if ($component instanceof FieldSet) {
-                $this->validateComponents($component->getComponents());
+                $this->validateRecursively($component->getComponents());
             } else {
                 $objectFilter = new ObjectFilter();
                 $objectFilter->filter(clone $component);
