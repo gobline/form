@@ -13,7 +13,6 @@ namespace Mendo\Form;
 
 use Mendo\Filter\FilterableInterface;
 use Mendo\Form\Element\AbstractElement;
-use \ReflectionObject;
 
 /**
  * @author Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
@@ -119,6 +118,8 @@ class FieldSet extends AbstractContainer
                 $property = lcfirst(substr($method, 3));
             } elseif ($this->startsWith($method, 'is')) {
                 $property = lcfirst(substr($method, 2));
+            } elseif ($this->startsWith($method, 'has')) {
+                $property = lcfirst(substr($method, 3));
             } else {
                 continue;
             }
@@ -151,7 +152,7 @@ class FieldSet extends AbstractContainer
         if (is_callable([$this->entity, $setter])) {
             $this->entity->$setter($value);
         } else {
-            $reflectionObject = new ReflectionObject($this->entity);
+            $reflectionObject = new \ReflectionObject($this->entity);
             if (
                 $reflectionObject->hasProperty($property) && 
                 $reflectionObject->getProperty($property)->isPublic()
