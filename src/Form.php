@@ -105,12 +105,18 @@ class Form extends AbstractContainer
                 if ($objectFilter->hasMessages()) {
                     $errors = $objectFilter->getMessages();
 
-                    $component->setErrors($errors['value']);
+                    $tmpErrors = [];
+                    $componentName = $component->getAttribute('name');
+                    $tmpErrors[$componentName] = [];
+                    foreach ($errors as $key => $value) {
+                        $component->addErrors($errors[$key]);
+                        $tmpErrors[$componentName] = 
+                            array_merge(
+                                $tmpErrors[$componentName], 
+                                $errors[$key]);
+                    }
 
-                    $errors[$component->getAttribute('name')] = $errors['value'];
-                    unset($errors['value']);
-
-                    $this->messages = array_merge($this->messages, $errors);
+                    $this->messages = array_merge($this->messages, $tmpErrors);
                 }
             }
         }
