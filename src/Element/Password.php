@@ -22,8 +22,6 @@ class Password extends AbstractElement
 
         $this->attributes['type'] = 'password';
         $this->attributes['value'] = '';
-
-        $this->rules['value'] = 'required';
     }
 
     public function __toString()

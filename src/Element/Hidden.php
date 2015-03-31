@@ -22,8 +22,6 @@ class Hidden extends AbstractElement
 
         $this->attributes['type'] = 'hidden';
         $this->attributes['value'] = '';
-
-        $this->rules['value'] = 'required';
     }
 
     public function __toString()

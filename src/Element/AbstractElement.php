@@ -31,6 +31,7 @@ abstract class AbstractElement extends AbstractComponent implements FilterableIn
         parent::__construct($name);
 
         $this->attributes['name'] = $name;
+        $this->rules['value'] = 'required';
     }
 
     public function setData($data)

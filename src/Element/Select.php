@@ -22,8 +22,6 @@ class Select extends AbstractElement
     public function __construct($name)
     {
         parent::__construct($name);
-
-        $this->rules['value'] = 'required';
     }
 
     public function __toString()
