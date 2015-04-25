@@ -16,7 +16,6 @@ namespace Mendo\Form\Element;
  */
 class Radio extends AbstractElement
 {
-    private $options = [];
     private $checked = false;
 
     public function __construct($name)
