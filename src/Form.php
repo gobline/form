@@ -108,12 +108,12 @@ class Form extends AbstractContainer
                     $tmpErrors = [];
                     $componentName = $component->getAttribute('name');
                     $tmpErrors[$componentName] = [];
-                    foreach ($errors as $key => $value) {
-                        $component->addErrors($errors[$key]);
+                    foreach ($errors as $property => $messages) {
+                        $component->addErrors($messages);
                         $tmpErrors[$componentName] = 
                             array_merge(
                                 $tmpErrors[$componentName], 
-                                $errors[$key]);
+                                $errors[$property]);
                     }
 
                     $this->messages = array_merge($this->messages, $tmpErrors);
