@@ -81,6 +81,13 @@ class Form extends AbstractContainer
         $fieldSet->populate($entity);
     }
 
+    public function setEntity($fieldSet, $entity)
+    {
+        $fieldSet = $this->components[$fieldSet];
+
+        $fieldSet->setEntity($entity);
+    }
+
     public function validate($data = null)
     {
         if ($data) {
