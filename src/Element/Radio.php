@@ -23,6 +23,8 @@ class Radio extends AbstractElement
         parent::__construct($name);
 
         $this->attributes['type'] = 'radio';
+
+        $this->rules['value'] = 'optional';
     }
 
     public function __toString()
@@ -42,5 +44,23 @@ class Radio extends AbstractElement
     public function setChecked($checked)
     {
         $this->checked = $checked;
+    }
+
+    public function setValue($value)
+    {
+        if (!isset($this->attributes['value'])) {
+            $this->attributes['value'] = $value;
+        } elseif ($value === $this->attributes['value']) {
+            $this->setChecked(true);
+        }
+    }
+
+    public function getValue()
+    {
+        if ($this->checked) {
+            return $this->attributes['value'];
+        } else {
+            return false;
+        }
     }
 }
