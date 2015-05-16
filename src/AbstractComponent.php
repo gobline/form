@@ -11,6 +11,8 @@
 
 namespace Mendo\Form;
 
+use Mendo\Translator\TranslatorInterface;
+
 /**
  * @author Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  */
@@ -18,6 +20,8 @@ abstract class AbstractComponent
 {
     protected $attributes = [];
     protected $propertyName;
+    private $translator;
+    private static $defaultTranslator;
 
     public function __construct($name)
     {
@@ -61,4 +65,36 @@ abstract class AbstractComponent
     }
 
     abstract public function setData($data);
+
+    /**
+     * @return TranslatorInterface
+     */
+    public function getTranslator()
+    {
+        if ($this->translator) {
+            return $this->translator;
+        }
+
+        if (self::$defaultTranslator) {
+            return self::$defaultTranslator;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param TranslatorInterface $translator
+     */
+    public function setTranslator(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
+    /**
+     * @param TranslatorInterface $translator
+     */
+    public static function setDefaultTranslator(TranslatorInterface $translator)
+    {
+        self::$defaultTranslator = $translator;
+    }
 }
