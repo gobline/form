@@ -33,4 +33,25 @@ class Date extends AbstractElement
 
         return $string.">\n";
     }
+
+    public function setValue($value)
+    {
+        if (is_string($value)) {
+            $value = new \DateTime($value);
+        }
+
+        $this->attributes['value'] = $value->format('Y-m-d');
+
+        return $this;
+    }
+
+    public function getValue()
+    {
+        $value = $this->attributes['value'];
+        if (is_string($value)) {
+            $value = new \DateTime($value);
+        }
+
+        return $value;
+    }
 }
