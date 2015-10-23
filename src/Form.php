@@ -26,6 +26,20 @@ class Form extends AbstractContainer
         $this->setAttribute('method', 'get');
     }
 
+    public function add(AbstractComponent $component)
+    {
+        if (
+            $component instanceof FieldSet && 
+            !$component->isNamespaced()
+        ) {
+            $this->components = array_merge($this->components, $component->getComponents());
+        }
+
+        parent::add($component);
+
+        return $this;
+    }
+
     public function setMethod($method)
     {
         $this->setAttribute('method', $method);

@@ -21,6 +21,7 @@ class FieldSet extends AbstractContainer
 {
     protected $entity;
     protected $legend;
+    protected $namespaced = true;
 
     public function __construct($name)
     {
@@ -38,13 +39,25 @@ class FieldSet extends AbstractContainer
     {
         parent::add($component);
 
-        $this->updateElementsNamespace($this->getPropertyName(), $component);
+        if ($this->namespaced) {
+            $this->updateElementsNamespace($this->getPropertyName(), $component);
+        }
 
         if ($component instanceof AbstractElement) {
             $component->setFieldSet($this);
         }
 
         return $this;
+    }
+
+    public function setNamespaced($namespaced)
+    {
+        $this->namespaced = $namespaced;
+    }
+
+    public function isNamespaced()
+    {
+        return $this->namespaced;
     }
 
     private function updateElementsNamespace($fieldSetName, AbstractComponent $component)
