@@ -16,6 +16,8 @@ namespace Mendo\Form\Element;
  */
 class Submit extends AbstractElement
 {
+    private $button = false;
+
     public function __construct($name)
     {
         parent::__construct($name);
@@ -28,11 +30,35 @@ class Submit extends AbstractElement
 
     public function __toString()
     {
-        $string = '<input';
-        foreach ($this->attributes as $attribute => $value) {
-            $string .= ' '.$attribute.'="'.$value.'"';
-        }
+        if ($this->button) {
+            $string = '<button';
+            foreach ($this->attributes as $attribute => $value) {
+                if ($attribute === 'value') continue;
+                $string .= ' '.$attribute.'="'.$value.'"';
+            }
 
-        return $string.">\n";
+            return $string.'>'.$this->attributes['value']."</button>\n";
+        } else {
+            $string = '<input';
+            foreach ($this->attributes as $attribute => $value) {
+                $string .= ' '.$attribute.'="'.$value.'"';
+            }
+
+            return $string.">\n";
+        }
+    }
+
+    public function setValue($value)
+    {
+        $this->attributes['value'] = $value;
+
+        return $this;
+    }
+
+    public function setButton($button)
+    {
+        $this->button = $button;
+
+        return $this;
     }
 }
