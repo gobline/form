@@ -33,7 +33,8 @@ class Select extends AbstractElement
         $string .= ">\n";
 
         foreach ($this->options as $value => $label) {
-            $string .= '<option value="'.$value.'"'.($this->selectedValue == $value ? ' selected' : '').'>'.$label."</option>\n";
+            $value = (string) $value;
+            $string .= '<option value="'.$value.'"'.($this->selectedValue === $value ? ' selected' : '').'>'.$label."</option>\n";
         }
 
         return $string."<select>\n";
