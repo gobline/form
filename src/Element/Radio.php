@@ -54,7 +54,11 @@ class Radio extends AbstractElement
             $this->attributes['value'] = $value;
         } elseif ($value === $this->attributes['value']) {
             $this->setChecked(true);
+        } else {
+            $this->setChecked(false);
         }
+
+        return $this;
     }
 
     public function getValue()
