@@ -54,6 +54,8 @@ class InputArray extends AbstractElement
     public function addErrors(array $errors)
     {
         $this->errors = $errors;
+
+        return $this;
     }
 
     public function hasErrors()
