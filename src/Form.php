@@ -127,7 +127,7 @@ class Form extends AbstractContainer
                     $errors = $objectFilter->getMessages();
 
                     $tmpErrors = [];
-                    $componentName = $component->getAttribute('name');
+                    $componentName = $component->getPropertyName();
                     $tmpErrors[$componentName] = [];
                     foreach ($errors as $property => $messages) {
                         $component->addErrors($messages);
