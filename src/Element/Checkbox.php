@@ -51,11 +51,17 @@ class Checkbox extends AbstractElement
 
     public function setValue($value)
     {
-        if (!isset($this->attributes['value'])) {
-            $this->attributes['value'] = $value;
-        } elseif ($value === $this->attributes['value']) {
-            $this->setChecked(true);
+        if (is_bool($value)) {
+            $value = ($value) ? '1' : '0';
         }
+
+        if ($value === $this->attributes['value']) {
+            $this->setChecked(true);
+        } else {
+            $this->setChecked(false);
+        }
+
+        return $this;
     }
 
     public function getValue()
