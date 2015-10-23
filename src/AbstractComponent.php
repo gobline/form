@@ -45,6 +45,13 @@ abstract class AbstractComponent
         return $this;
     }
 
+    public function removeAttribute($name)
+    {
+        unset($this->attributes[$name]);
+
+        return $this;
+    }
+
     public function getAttribute($name)
     {
         if (!$this->hasAttribute($name)) {
