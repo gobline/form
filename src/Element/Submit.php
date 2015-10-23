@@ -22,6 +22,8 @@ class Submit extends AbstractElement
 
         $this->attributes['type'] = 'submit';
         $this->attributes['value'] = '';
+
+        $this->rules['value'] = 'optional';
     }
 
     public function __toString()
