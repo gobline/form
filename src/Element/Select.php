@@ -49,7 +49,7 @@ class Select extends AbstractElement
 
     public function setValue($value)
     {
-        $this->selectedValue = $value;
+        $this->selectedValue = (string) $value;
 
         return $this;
     }
