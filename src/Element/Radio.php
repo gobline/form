@@ -44,6 +44,8 @@ class Radio extends AbstractElement
     public function setChecked($checked)
     {
         $this->checked = $checked;
+
+        return $this;
     }
 
     public function setValue($value)
