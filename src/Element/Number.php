@@ -35,4 +35,9 @@ class Number extends AbstractElement
 
         return $string.">\n";
     }
+
+    public function getValue()
+    {
+        return (int) $this->attributes['value'];
+    }
 }
