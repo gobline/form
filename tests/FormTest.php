@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Mendo Framework
+ * Gobline Framework
  *
  * (c) Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  *
@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-use Mendo\Form\Form;
-use Mendo\Form\FieldSet;
-use Mendo\Form\Element;
+use Gobline\Form\Form;
+use Gobline\Form\FieldSet;
+use Gobline\Form\Element;
 
 /**
  * @author Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Mendo Framework
+ * Gobline Framework
  *
  * (c) Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  *
@@ -9,9 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Mendo\Form\Element;
+namespace Gobline\Form\Element;
 
-use Mendo\Form\UploadedFile;
+use Gobline\Form\UploadedFile;
+use Psr\Http\Message\UploadedFileInterface;
 
 /**
  * @author Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
@@ -39,7 +40,11 @@ class File extends AbstractElement
 
     public function setValue($value)
     {
-        $this->uploadedFile = new UploadedFile($value);
+        if (!$value instanceof UploadedFileInterface) {
+            throw new \RuntimeException();
+        }
+
+        $this->uploadedFile = $value;
 
         return $this;
     }
@@ -49,8 +54,17 @@ class File extends AbstractElement
         return $this->uploadedFile;
     }
 
+    public function setFilters($filters)
+    {
+        $this->rules = $filters;
+
+        return $this;
+    }
+
     public function __call($name, array $arguments)
     {
-        return $this->uploadedFile->$name(...$arguments);
+        if (is_callable([$this->uploadedFile, $name])) {
+            return $this->uploadedFile->$name(...$arguments);
+        }
     }
 }

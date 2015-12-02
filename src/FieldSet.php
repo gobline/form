@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Mendo Framework
+ * Gobline Framework
  *
  * (c) Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  *
@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Mendo\Form;
+namespace Gobline\Form;
 
-use Mendo\Filter\FilterableInterface;
-use Mendo\Form\Element\AbstractElement;
+use Gobline\Filter\FilterableInterface;
+use Gobline\Form\Element\AbstractElement;
 
 /**
  * @author Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Mendo Framework
+ * Gobline Framework
  *
  * (c) Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  *
@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Mendo\Form\Element;
+namespace Gobline\Form\Element;
 
 /**
  * @author Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  */
-use Mendo\Form\AbstractComponent;
-use Mendo\Form\FieldSet;
-use Mendo\Filter\FilterableInterface;
+use Gobline\Form\AbstractComponent;
+use Gobline\Form\FieldSet;
+use Gobline\Filter\FilterableInterface;
 
 abstract class AbstractElement extends AbstractComponent implements FilterableInterface
 {
@@ -81,11 +81,7 @@ abstract class AbstractElement extends AbstractComponent implements FilterableIn
 
     public function setFilters($filters)
     {
-        if (is_array($filters)) {
-            $this->rules = $filters;
-        } else {
-            $this->rules['value'] = $filters;
-        }
+        $this->rules['value'] = $filters;
 
         return $this;
     }

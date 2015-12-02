@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Mendo Framework
+ * Gobline Framework
  *
  * (c) Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  *
@@ -9,21 +9,24 @@
  * file that was distributed with this source code.
  */
 
-namespace Mendo\Form;
+namespace Gobline\Form;
 
-use Mendo\Form\Element\AbstractElement;
-use Mendo\Filter\ObjectFilter;
+use Gobline\Form\Element\AbstractElement;
 
 /**
  * @author Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  */
 class Form extends AbstractContainer
 {
-    protected $messages = [];
+    protected $validator;
+    protected $dataFetcher;
 
     public function __construct()
     {
         $this->setAttribute('method', 'get');
+
+        $this->validator = new FormValidator();
+        $this->dataFetcher = new FormDataFetcher();
     }
 
     public function add(AbstractComponent $component)
@@ -61,38 +64,22 @@ class Form extends AbstractContainer
         return $this;
     }
 
-    public function get($name)
+    public function getValue($name)
     {
-        return $this->getRecursively($name, $this->components);
-    }
-
-    private function getRecursively($name, array $components)
-    {
-        if (array_key_exists($name, $components)) {
-            $component = $components[$name];
-
-            if ($component instanceof FieldSet) {
-                return $component->getEntity($name);
-            }
-
-            return $component->getValue();
+        if (!$this->dataFetcher) {
+            throw new \RuntimeException('Form has not been initialized');
         }
 
-        foreach ($components as $component) {
-            if ($component instanceof FieldSet) {
-                $result = $this->getRecursively($name, $component->getComponents($name));
-                if ($result) {
-                    return $result;
-                }
-            }
-        }
+        return $this->dataFetcher->get($name, $this->components, FormDataFetcher::FETCH_VALUE);
     }
 
-    public function populate($fieldSet, $entity)
+    public function getEntity($name)
     {
-        $fieldSet = $this->components[$fieldSet];
+        if (!$this->dataFetcher) {
+            throw new \RuntimeException('Form has not been initialized');
+        }
 
-        $fieldSet->populate($entity);
+        return $this->dataFetcher->get($name, $this->components, FormDataFetcher::FETCH_ENTITY);
     }
 
     public function setEntity($fieldSet, $entity)
@@ -102,49 +89,32 @@ class Form extends AbstractContainer
         $fieldSet->setEntity($entity);
     }
 
+    public function populate($fieldSet, $entity)
+    {
+        $fieldSet = $this->components[$fieldSet];
+
+        $fieldSet->populate($entity);
+    }
+
     public function validate($data = null)
     {
         if ($data) {
             $this->setData($data);
         }
 
-        $this->messages = [];
-        $this->validateRecursively($this->components);
-
-        return !$this->messages;
-    }
-
-    private function validateRecursively(array $components = [])
-    {
-        foreach ($components as $component) {
-            if ($component instanceof FieldSet) {
-                $this->validateRecursively($component->getComponents());
-            } else {
-                $objectFilter = new ObjectFilter();
-                $objectFilter->filter(clone $component);
-
-                if ($objectFilter->hasMessages()) {
-                    $errors = $objectFilter->getMessages();
-
-                    $tmpErrors = [];
-                    $componentName = $component->getPropertyName();
-                    $tmpErrors[$componentName] = [];
-                    foreach ($errors as $property => $messages) {
-                        $component->addErrors($messages);
-                        $tmpErrors[$componentName] = 
-                            array_merge(
-                                $tmpErrors[$componentName], 
-                                $errors[$property]);
-                    }
-
-                    $this->messages = array_merge($this->messages, $tmpErrors);
-                }
-            }
+        if (!$this->validator) {
+            throw new \RuntimeException('Form has not been initialized');
         }
+
+        return $this->validator->validate($this->components);
     }
 
     public function getMessages()
     {
-        return $this->messages;
+        if (!$this->validator) {
+            throw new \RuntimeException('Form has not been initialized');
+        }
+
+        return $this->validator->getMessages();
     }
 }

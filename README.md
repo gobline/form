@@ -1,4 +1,4 @@
-# Form Component - Mendo Framework
+# Form component
 
 The Form component is still in alpha stage. It has been designed to allow to:
 
@@ -15,9 +15,9 @@ The Form component is still in alpha stage. It has been designed to allow to:
 
 ## Installation
 
-You can install Mendo Form using the dependency management tool [Composer](https://getcomposer.org/).
+You can install the Form component using the dependency management tool [Composer](https://getcomposer.org/).
 Run the *require* command to resolve and download the dependencies:
 
 ```
-composer require mendoframework/form
+composer require gobline/form
 ```
