@@ -45,9 +45,9 @@ class FormValidator
                     $tmpErrors[$componentName] = [];
                     foreach ($errors as $property => $messages) {
                         $component->addErrors($messages);
-                        $tmpErrors[$componentName] = 
+                        $tmpErrors[$componentName] =
                             array_merge(
-                                $tmpErrors[$componentName], 
+                                $tmpErrors[$componentName],
                                 $errors[$property]);
                     }
 

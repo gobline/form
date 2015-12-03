@@ -33,7 +33,9 @@ class Submit extends AbstractElement
         if ($this->button) {
             $string = '<button';
             foreach ($this->attributes as $attribute => $value) {
-                if ($attribute === 'value') continue;
+                if ($attribute === 'value') {
+                    continue;
+                }
                 $string .= ' '.$attribute.'="'.$value.'"';
             }
 

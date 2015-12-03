@@ -167,7 +167,7 @@ class FieldSet extends AbstractContainer
         } else {
             $reflectionObject = new \ReflectionObject($this->entity);
             if (
-                $reflectionObject->hasProperty($property) && 
+                $reflectionObject->hasProperty($property) &&
                 $reflectionObject->getProperty($property)->isPublic()
             ) {
                 $this->entity->$property = $value;

@@ -63,6 +63,7 @@ class InputArray extends AbstractElement
         if (!isset($this->errors[$this->i])) {
             return false;
         }
+
         return (bool) $this->errors[$this->i];
     }
 

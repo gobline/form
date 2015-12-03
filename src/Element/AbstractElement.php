@@ -11,7 +11,7 @@
 
 namespace Gobline\Form\Element;
 
-/**
+/*
  * @author Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  */
 use Gobline\Form\AbstractComponent;

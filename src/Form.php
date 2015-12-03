@@ -11,8 +11,6 @@
 
 namespace Gobline\Form;
 
-use Gobline\Form\Element\AbstractElement;
-
 /**
  * @author Mathieu Decaffmeyer <mdecaffmeyer@gmail.com>
  */
@@ -32,7 +30,7 @@ class Form extends AbstractContainer
     public function add(AbstractComponent $component)
     {
         if (
-            $component instanceof FieldSet && 
+            $component instanceof FieldSet &&
             !$component->isNamespaced()
         ) {
             $this->components = array_merge($this->components, $component->getComponents());
